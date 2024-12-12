@@ -1,0 +1,64 @@
+<!--  наследуемся от шаблона default.html, который мы создавали для flatpages -->
+{% extends 'flatpages/default.html' %}
+
+{% load custom_filters %}
+{% load custom_tags %}
+<!-- Название у нас будет products -->
+{% block title %}
+Products
+{% endblock title %}
+
+<!-- В контенте на странице мы выводим все товары -->
+{% block content %}
+<h1>Все товары</h1>
+<h3>{{ time_now|date:'M d Y' }}</h3>
+<hr>
+<h3>{% current_time '%b %d %Y' %}</h3>
+
+<hr>
+    {% if products %}
+            <table>
+                <tr>
+                    <td>Название</td>
+                    <td>Описание</td>
+                    <td>Категория</td>
+                    <td>Цена</td>
+                    <td>Количество</td>
+                </tr>
+                {% for product in products %}
+                <tr>
+                <td>{{product.name}}</td>
+                <td>{{product.description| truncatewords:3}}</td>
+                <td>{{product.category}}</td>
+                <td>{{product.price|currency:'rub'}}</td>
+                <td>{{product.quantity}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+<hr>
+<p><em>{{ next_sale|default_if_none:'Чуть позже посмотрим...' }}</em></p>
+    {% else %}
+        <h2>Товаров нет, приходите завтра</h2>
+    {% endif %}
+
+{% if page_obj.has_previous %}
+    <a href="?page=1">1</a>
+    {% if page_obj.previous_page_number != 1 %}
+        ...
+        <a href="?page={{page_obj.previous_page_number}}">{{page_obj.previous_page_number}}</a>
+    {% endif %}
+{% endif %}
+
+{{ page_obj.number }}
+<!--<a href="?page={{page_obj.number}}">{{page_obj.number}}</a>-->
+
+{% if page_obj.has_next %}
+    <a href="?page={{page_obj.next_page_number}}">{{page_obj.next_page_number}}</a>
+        {% if paginator.num_pages != page_obj.next_page_number %}
+        ...
+            <a href="?page={{paginator.num_pages}}">{{paginator.num_pages}}</a>
+        {% endif %}
+{% endif %}
+
+
+{% endblock content %}
