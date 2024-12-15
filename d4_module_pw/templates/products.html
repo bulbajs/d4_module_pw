@@ -12,8 +12,17 @@ Products
 {% block content %}
 <h1>Все товары</h1>
 <h3>{{ time_now|date:'M d Y' }}</h3>
+<!--<hr>-->
+<!--<h3>{% current_time '%b %d %Y' %}</h3>-->
 <hr>
-<h3>{% current_time '%b %d %Y' %}</h3>
+
+<form action="" method="get">
+
+    {{ filterset.form.as_p }}
+
+    <input type="submit" value="Найти" />
+</form>
+
 
 <hr>
     {% if products %}
@@ -42,7 +51,7 @@ Products
     {% endif %}
 
 {% if page_obj.has_previous %}
-    <a href="?page=1">1</a>
+    <a href="?{% url_replace page=1 %}">1</a>
     {% if page_obj.previous_page_number != 1 %}
         ...
         <a href="?page={{page_obj.previous_page_number}}">{{page_obj.previous_page_number}}</a>
@@ -53,12 +62,13 @@ Products
 <!--<a href="?page={{page_obj.number}}">{{page_obj.number}}</a>-->
 
 {% if page_obj.has_next %}
-    <a href="?page={{page_obj.next_page_number}}">{{page_obj.next_page_number}}</a>
+    <a href="?{% url_replace page=page_obj.next_page_number %}">{{page_obj.next_page_number}}</a>
         {% if paginator.num_pages != page_obj.next_page_number %}
         ...
-            <a href="?page={{paginator.num_pages}}">{{paginator.num_pages}}</a>
+            <a href="?{% url_replace page=page_obj.paginator.num_pages %}">{{page_obj.paginator.num_pages}}</a>
         {% endif %}
 {% endif %}
+
 
 
 {% endblock content %}
