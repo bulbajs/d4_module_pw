@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 from .models import Product
 from datetime import datetime
 from .filters import ProductFilter
+from .forms import ProductForm
 
 
 class ProductList(ListView):
@@ -25,10 +26,23 @@ class ProductList(ListView):
         self.filterset = ProductFilter(self.request.GET, queryset)
         return self.filterset.qs
 
+
 class ProductDetail(DetailView):
     model = Product
     template_name = 'product.html'
     context_object_name = 'product'
+
+
+def create_form(request):
+    if request.method == 'POST':
+        form = ProductForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/products/')
+    else:
+        form = ProductForm()
+
+    return render(request,'product_create.html', {'form': form})
 
 
 

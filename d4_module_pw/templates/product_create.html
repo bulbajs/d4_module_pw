@@ -1,0 +1,19 @@
+{% extends 'flatpages/default.html' %}
+<head>
+    {% block title %}
+    Product Creation
+    {% endblock title%}
+</head>
+<body>
+{% block content %}
+<br>
+<h3>Создайте новый продукт </h3>
+<hr>
+    <form action="" method="post" >
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="Submit" value="Save" />
+    </form>
+
+{% endblock content %}
+</body>
