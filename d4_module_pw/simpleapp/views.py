@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
 from .models import Product
 from datetime import datetime
 from .filters import ProductFilter
@@ -33,16 +33,20 @@ class ProductDetail(DetailView):
     context_object_name = 'product'
 
 
-def create_form(request):
-    if request.method == 'POST':
-        form = ProductForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('/products/')
-    else:
-        form = ProductForm()
+# def create_form(request):
+#     if request.method == 'POST':
+#         form = ProductForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('/products/')
+#     else:
+#         form = ProductForm()
+#
+#     return render(request,'product_create.html', {'form': form})
 
-    return render(request,'product_create.html', {'form': form})
-
+class CreateProduct(CreateView):
+    form_class = ProductForm
+    model = Product
+    template_name = 'product_create.html'
 
 

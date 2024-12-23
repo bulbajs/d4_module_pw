@@ -1,4 +1,5 @@
 from django.db import models
+from django.shortcuts import reverse
 from django.core.validators import MaxLengthValidator, MinValueValidator
 
 
@@ -11,6 +12,9 @@ class Product(models.Model):
 
     def __str__(self):
         return f'{self.name.title()}: {self.description[:100]}'
+
+    def get_absolute_url(self):
+        return reverse('product_detail', args=[str(self.id)])
 
 
 class Category(models.Model):
