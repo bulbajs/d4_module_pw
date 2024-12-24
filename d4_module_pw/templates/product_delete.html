@@ -1,0 +1,26 @@
+
+<head>
+    {% block title %}
+    Delete item
+    {% endblock title %}
+</head>
+
+<body>
+    {% block content %}
+    <h1>Удаление товара </h1>
+    <hr>
+    <form action="" method="post">
+        {% crsf_token %}
+        {{form.as_p}}
+        <p>Удаляем {{object.name}} ?</p>
+        <input type="submit" value="Delete" />
+
+
+
+
+
+
+
+    </form>
+    {% endblock content %}
+</body>

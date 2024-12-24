@@ -1,5 +1,5 @@
-from django.shortcuts import render, redirect
-from django.views.generic import ListView, DetailView, CreateView
+from django.shortcuts import render, redirect, reverse
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from .models import Product
 from datetime import datetime
 from .filters import ProductFilter
@@ -50,3 +50,7 @@ class CreateProduct(CreateView):
     template_name = 'product_create.html'
 
 
+class UpdateProduct(UpdateView):
+    form_class = ProductForm
+    model = Product
+    template_name = 'product_create.html'
