@@ -14,7 +14,7 @@ class Product(models.Model):
         return f'{self.name.title()}: {self.description[:100]}'
 
     def get_absolute_url(self):
-        return reverse('products')
+        return reverse('products_list')
 
 
 class Category(models.Model):

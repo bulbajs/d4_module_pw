@@ -3,72 +3,72 @@
 
 {% load custom_filters %}
 {% load custom_tags %}
+
 <!-- Название у нас будет products -->
 {% block title %}
-Products
+    Products
 {% endblock title %}
 
 <!-- В контенте на странице мы выводим все товары -->
 {% block content %}
-<h1>Все товары</h1>
-<h3>{{ time_now|date:'M d Y' }}</h3>
-<!--<hr>-->
-<!--<h3>{% current_time '%b %d %Y' %}</h3>-->
-<hr>
+    <h1>Все товары</h1>
+    <h3>{{ time_now|date:'M d Y' }}</h3>
+    <!--<hr>-->
+    <!--<h3>{% current_time '%b %d %Y' %}</h3>-->
+    <hr>
 
-<form action="" method="get">
+    <form action="" method="get">
+        {{ filterset.form.as_p }}
+        <input type="submit" value="Найти" />
+    </form>
 
-    {{ filterset.form.as_p }}
+    <hr>
 
-    <input type="submit" value="Найти" />
-</form>
-
-
-<hr>
     {% if products %}
-            <table>
-                <tr>
-                    <td>Название</td>
-                    <td>Описание</td>
-                    <td>Категория</td>
-                    <td>Цена</td>
-                    <td>Количество</td>
-                </tr>
-                {% for product in products %}
-                <tr>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Название</th>
+                <th>Описание</th>
+                <th>Категория</th>
+                <th>Цена</th>
+                <th>Количество</th>
+            </tr>
+            {% for product in products %}
+            <tr>
+                <td>{{product.id}}</td>
                 <td>{{product.name}}</td>
                 <td>{{product.description| truncatewords:3}}</td>
                 <td>{{product.category}}</td>
                 <td>{{product.price|currency:'rub'}}</td>
                 <td>{{product.quantity}}</td>
-                </tr>
-                {% endfor %}
-            </table>
-<hr>
-<p><em>{{ next_sale|default_if_none:'Чуть позже посмотрим...' }}</em></p>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <hr>
+
+        <p><em>{{ next_sale|default_if_none:'Чуть позже посмотрим...' }}</em></p>
     {% else %}
         <h2>Товаров нет, приходите завтра</h2>
     {% endif %}
 
-{% if page_obj.has_previous %}
-    <a href="?{% url_replace page=1 %}">1</a>
-    {% if page_obj.previous_page_number != 1 %}
-        ...
-        <a href="?page={{page_obj.previous_page_number}}">{{page_obj.previous_page_number}}</a>
+    {% if page_obj.has_previous %}
+        <a href="?{% url_replace page=1 %}">1</a>
+        {% if page_obj.previous_page_number != 1 %}
+            ...
+            <a href="?page={{page_obj.previous_page_number}}">{{page_obj.previous_page_number}}</a>
+        {% endif %}
     {% endif %}
-{% endif %}
 
-{{ page_obj.number }}
-<!--<a href="?page={{page_obj.number}}">{{page_obj.number}}</a>-->
-
-{% if page_obj.has_next %}
-    <a href="?{% url_replace page=page_obj.next_page_number %}">{{page_obj.next_page_number}}</a>
+    {{ page_obj.number }}
+    <!--<a href="?page={{page_obj.number}}">{{page_obj.number}}</a>-->
+    {% if page_obj.has_next %}
+        <a href="?{% url_replace page=page_obj.next_page_number %}">{{page_obj.next_page_number}}</a>
         {% if paginator.num_pages != page_obj.next_page_number %}
-        ...
+            ...
             <a href="?{% url_replace page=page_obj.paginator.num_pages %}">{{page_obj.paginator.num_pages}}</a>
         {% endif %}
-{% endif %}
-
-
+    {% endif %}
 
 {% endblock content %}

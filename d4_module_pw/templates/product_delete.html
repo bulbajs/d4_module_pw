@@ -1,3 +1,4 @@
+{% extends 'flatpages/default.html' %}
 
 <head>
     {% block title %}
@@ -7,20 +8,13 @@
 
 <body>
     {% block content %}
-    <h1>Удаление товара </h1>
+    <h3>Удаление товара </h3>
     <hr>
     <form action="" method="post">
         {% crsf_token %}
         {{form.as_p}}
         <p>Удаляем {{object.name}} ?</p>
-        <input type="submit" value="Delete" />
-
-
-
-
-
-
-
+        <input type="submit" value="Удалить" />
     </form>
     {% endblock content %}
 </body>

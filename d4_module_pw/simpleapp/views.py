@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect, reverse
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Product
 from datetime import datetime
 from .filters import ProductFilter
 from .forms import ProductForm
+from django.urls import reverse_lazy
 
 
 class ProductList(ListView):
@@ -11,7 +12,7 @@ class ProductList(ListView):
     ordering = 'name'
     template_name = 'products.html'
     context_object_name = 'products'
-    paginate_by = 2
+    paginate_by = 3
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -24,7 +25,7 @@ class ProductList(ListView):
     def get_queryset(self):
         queryset = super().get_queryset()
         self.filterset = ProductFilter(self.request.GET, queryset)
-        return self.filterset.qs
+        return self.filterset.qs.order_by('id')
 
 
 class ProductDetail(DetailView):
@@ -54,3 +55,9 @@ class UpdateProduct(UpdateView):
     form_class = ProductForm
     model = Product
     template_name = 'product_create.html'
+
+
+class DeleteProduct(DeleteView):
+    model = Product
+    template_name = 'product_delete.html'
+    success_url = reverse_lazy('product_list')
