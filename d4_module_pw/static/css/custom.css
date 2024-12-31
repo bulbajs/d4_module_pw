@@ -1,0 +1,21 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Увеличена тень */
+}
+
+th, td {
+    border: 1px solid #bbb; /* Изменен цвет линии */
+    padding: 2px; /* Увеличено расстояние */
+    text-align: center;
+    vertical-align: middle;
+}
+
+th {
+    background-color: #C0C0C0; /* Изменен цвет фона */
+}
+
+tr:hover {
+    background-color: #FAEBD7; /* Изменен цвет фона при наведении */
+}

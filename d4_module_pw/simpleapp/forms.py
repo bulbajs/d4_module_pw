@@ -4,7 +4,7 @@ from django.core.exceptions import ValidationError
 
 
 class ProductForm(forms.ModelForm):
-    description = forms.CharField(min_length=20)
+    description = forms.CharField(min_length=25)
 
     class Meta:
         model = Product
