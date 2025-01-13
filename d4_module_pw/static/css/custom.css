@@ -1,21 +1,35 @@
+
 table {
     width: 100%;
-    border-collapse: collapse;
     margin: 20px 0;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Увеличена тень */
+    border-collapse: collapse;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 th, td {
-    border: 1px solid #bbb; /* Изменен цвет линии */
-    padding: 2px; /* Увеличено расстояние */
+    border: 1px solid #ddd;
+    padding: 3px; /* Увеличено расстояние */
     text-align: center;
     vertical-align: middle;
 }
 
 th {
-    background-color: #C0C0C0; /* Изменен цвет фона */
+    background-color: #696969; /* Тёмно-серый для заголовков */
+    color: #ffffff; /* Белый текст */
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2; /* Светло-серый фон для чётных строк */
+}
+
+tr:nth-child(odd) {
+    background-color: #ffffff; /* Белый фон для нечётных строк */
 }
 
 tr:hover {
-    background-color: #FAEBD7; /* Изменен цвет фона при наведении */
+    background-color: #dcdcdc; /* Серый при наведении */
+}
+
+td {
+    color: #333333; /* Темно-серый текст для ячеек */
 }
